@@ -2,9 +2,13 @@
 
 pub mod record;
 pub mod signer;
+pub mod software_signer;
+pub mod verifier;
 
 pub use record::SealedRecord;
 pub use signer::{Signer, SignerError};
+pub use software_signer::SoftwareSigner;
+pub use verifier::verify;
 
 pub fn sha256(bytes: &[u8]) -> [u8; 32] {
     use sha2::{Digest, Sha256};
@@ -20,7 +24,6 @@ mod tests {
 
     #[test]
     fn sha256_matches_nist_vector() {
-        // Standard SHA-256("abc") test vector.
         assert_eq!(
             hex::encode(sha256(b"abc")),
             "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
